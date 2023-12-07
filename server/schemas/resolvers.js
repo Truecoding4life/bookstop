@@ -15,9 +15,9 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const createdSuccess = User.create({ username, email, password });
-      const token = signToken(profile);
+      const token = signToken(createdSuccess);
 
-      return { token, profile };
+      return { token, createdSuccess};
     },
     login: async (parent, { email, password }) => {
       const foundUser = await User.findOne({ email });
@@ -34,18 +34,18 @@ const resolvers = {
       return { token, foundUser };
     },
   },
-  addBook: async (parent, args) => {
-    const updateUser = User.findOneAndUpdate(
-      { _id: args.id },
-      {
-        $addToSet: { savedBooks: args },
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-  },
+//   addBook: async (parent, args) => {
+//     const updateUser = User.findOneAndUpdate(
+//       { _id: args.userId },
+//       {
+//         $addToSet: { savedBooks: args },
+//       },
+//       {
+//         new: true,
+//         runValidators: true,
+//       }
+//     );
+//   },
 };
 
 module.exports = resolvers;
