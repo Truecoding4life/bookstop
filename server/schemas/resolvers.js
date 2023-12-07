@@ -1,6 +1,6 @@
 const { User} = require('../models');
 
-const {signToken} = require('../utils/auth')
+const {signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
   Query: {
@@ -8,6 +8,7 @@ const resolvers = {
       if(context.user){
         return User.findOne({ _id: context.user._id})
       }
+      else throw 
     }
   },
   Mutation: {
@@ -18,14 +19,14 @@ const resolvers = {
           throw AuthenticationError;
         }
   
-        const correctPw = await profile.isCorrectPassword(password);
+        const correctPw = await foundUser.isCorrectPassword(password);
   
         if (!correctPw) {
           throw AuthenticationError;
         }
   
-        const token = signToken(profile);
-        return { token, profile };
+        const token = signToken(foundUser);
+        return { token, foundUser };
       },
   }
 };
