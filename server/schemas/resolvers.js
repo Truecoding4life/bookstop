@@ -11,6 +11,9 @@ const resolvers = {
         throw AuthenticationError;
       }
     },
+    profiles: async (parent, args)=>{
+      return User.find({})
+    }
   },
   Mutation: {
     addUser: async (parent, { username, email, password }) => {

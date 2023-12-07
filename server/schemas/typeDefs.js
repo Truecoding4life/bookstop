@@ -14,18 +14,18 @@ const typeDefs =`
 
     type User {
         _id: ID
-        email: String!
-        password: String!
+        email: String
+        password: String
         savedBooks: [Book]
     }
 
     type Auth {
-        token: ID!
+        token: ID
         user: User
     }
 
     type Query {
-        profiles: [User]!
+        profiles: [User]
         profile(_id: ID!): User
     }
 
@@ -33,7 +33,7 @@ const typeDefs =`
         addUser(username: String!, email: String!, password: String!): User
         addBook(userId: ID!,description: String!, title: String!): User
         removeBook(userId: ID!, name: String!): User    
-        login(username: String!, password: String!):User
+        login(username: String!, password: String!): User
     }
 `;
 
