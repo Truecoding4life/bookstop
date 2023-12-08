@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"; // Added import for Link
 import Auth from "../utils/auth";
 
 const LoginForm = () => {
-  const [login, { data, error }] = useMutation(LOGIN_USER);
+  const [login, { data }] = useMutation(LOGIN_USER);
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState(false); // Changed the state variable name to 'setValidated'
   const [showAlert, setShowAlert] = useState(false);
@@ -100,9 +100,6 @@ const LoginForm = () => {
         </Form>
       )}
 
-      {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )}
     </>
   );
 };
