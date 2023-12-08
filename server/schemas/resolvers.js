@@ -1,3 +1,4 @@
+const { createUser } = require("../controllers/user-controller");
 const { User } = require("../models");
 
 const { signToken, AuthenticationError } = require("../utils/auth");
@@ -8,7 +9,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       } else {
-        throw AuthenticationError;
+        throw new AuthenticationError;
       }
     },
     profiles: async (parent, args)=>{
@@ -17,10 +18,12 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
-      const createdSuccess = User.create({ username, email, password });
+      const createdSuccess = await User.create({ username, email, password });
       const token = signToken(createdSuccess);
-
       return { token, createdSuccess};
+      if(!createUser){
+        throw new AuthenticationError();
+      }
     },
     login: async (parent, { email, password }) => {
       const foundUser = await User.findOne({ email });
