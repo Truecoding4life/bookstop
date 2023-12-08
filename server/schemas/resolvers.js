@@ -36,19 +36,20 @@ const resolvers = {
       const token = signToken(foundUser);
       return { token, foundUser };
     },
+  //   addBook: async (parent, {userId, description, title}) => {
+  //   const updateUser = User.findOneAndUpdate(
+  //     { _id: userId },
+  //     {
+  //       $addToSet: { savedBooks: {title, description} },
+  //     },
+  //     {
+  //       new: true,
+  //       runValidators: true,
+  //     }
+  //   );
+  // },
   },
-//   addBook: async (parent, args) => {
-//     const updateUser = User.findOneAndUpdate(
-//       { _id: args.userId },
-//       {
-//         $addToSet: { savedBooks: args },
-//       },
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-//   },
+  
 };
 
 module.exports = resolvers;
