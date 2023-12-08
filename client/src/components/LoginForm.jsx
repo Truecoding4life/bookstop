@@ -1,14 +1,14 @@
 // see SignupForm.js for comments
-import { useMutation } from '@apollo/client';
-import LOGIN from '../utils/mutations';
-import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Added import for Link
-import Auth from '../utils/auth';
+import { useMutation } from "@apollo/client";
+import LOGIN_USER from "../utils/mutations";
+import { useState } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Added import for Link
+import Auth from "../utils/auth";
 
 const LoginForm = () => {
-  const [login, { data, error }] = useMutation(LOGIN);
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [login, { data, error }] = useMutation(LOGIN_USER);
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState(false); // Changed the state variable name to 'setValidated'
   const [showAlert, setShowAlert] = useState(false);
 
@@ -37,8 +37,8 @@ const LoginForm = () => {
     }
 
     setUserFormData({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
 
     setValidated(true); // Added to set the form validation to true
@@ -46,15 +46,18 @@ const LoginForm = () => {
 
   return (
     <>
-  
-  {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
+      {data ? (
+        <p>
+          Success! You may now head <Link to="/">back to the homepage.</Link>
+        </p>
+      ) : (
         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-          <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="danger"
+          >
             Something went wrong with your login credentials!
           </Alert>
           <Form.Group className="mb-3">
@@ -67,7 +70,9 @@ const LoginForm = () => {
               value={userFormData.email}
               required
             />
-            <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Email is required!
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -80,7 +85,9 @@ const LoginForm = () => {
               value={userFormData.password}
               required
             />
-            <Form.Control.Feedback type="invalid">Password is required!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Password is required!
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Button
@@ -88,18 +95,16 @@ const LoginForm = () => {
             type="submit"
             variant="success"
           >
-                        Submit
-                      </Button>
-                    </Form>
-                            )}
+            Submit
+          </Button>
+        </Form>
+      )}
 
-                            {error && (
-                              <div className="my-3 p-3 bg-danger text-white">
-                                {error.message}
-                              </div>
-                            )}
-                </>
-              );
-            };
+      {error && (
+        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+      )}
+    </>
+  );
+};
 
-            export default LoginForm;
+export default LoginForm;
